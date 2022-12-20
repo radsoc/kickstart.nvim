@@ -140,7 +140,7 @@ vim.wo.signcolumn = 'yes'
 
 -- Set colorscheme
 vim.o.termguicolors = true
-require("gruvbox").setup({
+require('gruvbox').setup({
   undercurl = true,
   underline = true,
   bold = false,
@@ -151,9 +151,14 @@ require("gruvbox").setup({
   invert_tabline = false,
   invert_intend_guides = false,
   inverse = true, -- invert background for search, diffs, statuslines and errors
-  contrast = "hard", -- can be "hard", "soft" or empty string
+  contrast = 'hard', -- can be 'hard', 'soft' or empty string
   palette_overrides = {},
-  overrides = {},
+  overrides = {
+    SignColumn = {bg = '#1d2021'},
+    GitSignsAdd = {bg = '#1d2021', fg = '#b8bb26'},
+    GitSignsChange = {bg = '#1d2021', fg = '#d65d0e'},
+    GitSignsDelete = {bg = '#1d2021', fg = '#cc241d'},
+  },
   dim_inactive = false,
   transparent_mode = false,
 })
@@ -211,6 +216,7 @@ require('gitsigns').setup {
     delete = { text = '_' },
     topdelete = { text = '‾' },
     changedelete = { text = '~' },
+    untracked    = { text = '┆' },
   },
 }
 
