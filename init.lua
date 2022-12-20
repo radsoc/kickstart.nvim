@@ -231,6 +231,16 @@ require('telescope').setup {
       },
     },
   },
+  pickers = {
+    buffers = {
+      sort_lastused = true,
+      mappings = {
+        i = {
+          ["<C-x>"] = "delete_buffer",
+        },
+      },
+    },
+  },
 }
 
 -- Enable telescope fzf native, if installed
