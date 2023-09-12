@@ -24,10 +24,18 @@ require('packer').startup(function(use)
       -- Automatically install LSPs to stdpath for neovim
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
-
-      -- Useful status updates for LSP
-      'j-hui/fidget.nvim',
     },
+  }
+
+  use {
+    -- Useful status updates for LSP
+    'j-hui/fidget.nvim',
+    tag = 'legacy',
+    config = function()
+      require("fidget").setup {
+        -- options
+      }
+    end,
   }
 
   use { -- Autocompletion
@@ -144,7 +152,11 @@ require('gruvbox').setup({
   undercurl = true,
   underline = true,
   bold = false,
-  italic = false,
+  italic = {
+    strings = false,
+    operators = false,
+    comments = false
+    },
   strikethrough = true,
   invert_selection = false,
   invert_signs = false,
@@ -267,7 +279,7 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'javascript', 'lua', 'help' },
+  ensure_installed = { 'javascript', 'lua' },
 
   highlight = { enable = true },
   indent = { enable = true },
@@ -386,7 +398,7 @@ require('mason').setup()
 
 -- Enable the following language servers
 -- Feel free to add/remove any LSPs that you want here. They will automatically be installed
-local servers = { 'clangd', 'tsserver', 'sumneko_lua' }
+local servers = { 'clangd', 'tsserver', 'lua_ls' }
 
 -- Ensure the servers above are installed
 require('mason-lspconfig').setup {
@@ -414,7 +426,7 @@ local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, 'lua/?.lua')
 table.insert(runtime_path, 'lua/?/init.lua')
 
-require('lspconfig').sumneko_lua.setup {
+require('lspconfig').lua_ls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   settings = {
